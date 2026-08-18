@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home · Fresher Party 2026</title>
+    <link rel="icon" href="images/favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="brand">
+            <img id="brandLogo" src="" alt="Logo" class="brand-logo" style="display:none">
+            <span class="brand-icon" id="brandIcon">🎓</span>
+            <span class="brand-text">
+                <span class="brand-name" data-nav-name></span>
+                <span class="brand-sub">Fresher Party 2026</span>
+            </span>
+        </a>
+        <div class="nav-right">
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="register.html"><i class="fas fa-user-graduate"></i> Student Registration</a></li>
+                <li><a href="faculty.html"><i class="fas fa-chalkboard-teacher"></i> Faculty</a></li>
+                <li><a href="dashboard.html"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+                <li><a href="search.html"><i class="fas fa-search"></i> Search</a></li>
+                <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                <li><a href="about.html"><i class="fas fa-university"></i> About</a></li>
+                <li><a href="admin.html"><i class="fas fa-lock"></i> Admin</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" title="Toggle theme"><i class="fas fa-moon"></i></button>
+            <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+        </div>
+    </div>
+    <div class="nav-search">
+        <div class="search-wrap"><i class="fas fa-search search-icon"></i>
+            <input type="text" id="globalSearch" class="search-input" placeholder="Search students, faculty, branches… (live)"></div>
+        <div class="search-results" id="globalSearchResults"></div>
+    </div>
+</nav>
+
+<div class="toast-container" id="toastContainer"></div>
+<canvas id="confettiCanvas"></canvas>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+    <div class="hero-particles" id="heroParticles"></div>
+    <div class="hero-content fade-up">
+        <div class="hero-badge"><span>🎓 Welcome to</span></div>
+        <h1 class="hero-title"><span class="gradient-text">FRESHER PARTY 2026</span></h1>
+        <p class="hero-college" data-nav-name></p>
+        <p class="hero-tagline" id="heroTagline"></p>
+        <div class="hero-actions">
+            <a href="register.html" class="btn btn-primary btn-lg"><i class="fas fa-user-plus"></i> Register Now</a>
+            <a href="about.html" class="btn btn-outline btn-lg"><i class="fas fa-university"></i> Explore College</a>
+        </div>
+        <div class="countdown-card">
+            <p class="countdown-label">🎉 FRESHER PARTY STARTS IN</p>
+            <div class="countdown">
+                <div class="cd-unit"><span class="cd-num" id="cdDays">00</span><span class="cd-label">DAYS</span></div>
+                <div class="cd-sep">:</div>
+                <div class="cd-unit"><span class="cd-num" id="cdHours">00</span><span class="cd-label">HOURS</span></div>
+                <div class="cd-sep">:</div>
+                <div class="cd-unit"><span class="cd-num" id="cdMins">00</span><span class="cd-label">MINUTES</span></div>
+                <div class="cd-sep">:</div>
+                <div class="cd-unit"><span class="cd-num" id="cdSecs">00</span><span class="cd-label">SECONDS</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ STATISTICS ============ -->
+<section class="stats-section">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card fade-up">
+                <div class="stat-icon" style="background:#eef2ff;color:#4f46e5"><i class="fas fa-user-graduate"></i></div>
+                <div class="stat-num" id="statStudents">0</div>
+                <div class="stat-label">Total Students Registered</div>
+            </div>
+            <div class="stat-card fade-up">
+                <div class="stat-icon" style="background:#fce7f3;color:#db2777"><i class="fas fa-chalkboard-teacher"></i></div>
+                <div class="stat-num" id="statFaculty">0</div>
+                <div class="stat-label">Total Faculty</div>
+            </div>
+            <div class="stat-card fade-up">
+                <div class="stat-icon" style="background:#dcfce7;color:#16a34a"><i class="fas fa-building"></i></div>
+                <div class="stat-num" id="statBranches">0</div>
+                <div class="stat-label">Total Branches</div>
+            </div>
+            <div class="stat-card fade-up">
+                <div class="stat-icon" style="background:#fef3c7;color:#d97706"><i class="fas fa-hourglass-half"></i></div>
+                <div class="stat-num" id="daysRemaining">–</div>
+                <div class="stat-label">Days Remaining</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ WHY ============ -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="section-head fade-up">
+            <h2>Get Ready to Celebrate 🎊</h2>
+            <p>Join us for an unforgettable welcome party. Register as a fresher and be part of the celebration.</p>
+        </div>
+        <div class="feature-grid">
+            <div class="feature-card fade-up"><div class="feature-icon">🎟️</div><h3>Free Registration</h3><p>Register online in under a minute and get your unique registration number instantly.</p></div>
+            <div class="feature-card fade-up"><div class="feature-icon">🎶</div><h3>Music &amp; Dance</h3><p>Live DJ, cultural performances and dance competitions to light up the evening.</p></div>
+            <div class="feature-card fade-up"><div class="feature-icon">🏆</div><h3>Fun Competitions</h3><p>Fresher of the Year, talent hunts and many exciting prizes to be won.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ RECENT ============ -->
+<section class="section">
+    <div class="container">
+        <div class="section-head fade-up">
+            <h2>🎓 Students Successfully Registered</h2>
+            <p id="recentSub"></p>
+        </div>
+        <div class="recent-grid" id="recentGrid"></div>
+    </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-col">
+            <h4 data-nav-name></h4>
+            <p id="footerTagline"></p>
+            <p class="footer-address" id="footerAddress"><i class="fas fa-map-marker-alt"></i></p>
+        </div>
+        <div class="footer-col"><h4>Quick Links</h4>
+            <ul><li><a href="index.html">Home</a></li><li><a href="register.html">Register</a></li><li><a href="faculty.html">Faculty</a></li><li><a href="gallery.html">Gallery</a></li></ul></div>
+        <div class="footer-col"><h4>Contact</h4>
+            <p id="footerPhone"><i class="fas fa-phone"></i></p><p id="footerEmail"><i class="fas fa-envelope"></i></p><p id="footerWebsite"><i class="fas fa-globe"></i></p></div>
+    </div>
+    <div class="footer-bottom">© <span id="footerYear"></span> <span data-nav-name></span> · Fresher Party 2026. All rights reserved.</div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/data.js"></script>
+<script src="js/common.js"></script>
+<script>
+(function () {
+    // Statistics
+    document.getElementById('statStudents').textContent = DB.totalStudents();
+    document.getElementById('statFaculty').textContent = DB.totalFaculty();
+    document.getElementById('statBranches').textContent = DB.totalBranches();
+    document.getElementById('recentSub').textContent = DB.totalStudents() + ' students and counting. Here are the latest.';
+
+    // Hero tagline
+    document.getElementById('heroTagline').textContent = SITE_CONFIG.college.tagline;
+    document.getElementById('footerTagline').textContent = SITE_CONFIG.college.tagline;
+    document.getElementById('footerAddress').innerHTML = '<i class="fas fa-map-marker-alt"></i> ' + SITE_CONFIG.college.address;
+    document.getElementById('footerPhone').innerHTML = '<i class="fas fa-phone"></i> ' + SITE_CONFIG.college.phone;
+    document.getElementById('footerEmail').innerHTML = '<i class="fas fa-envelope"></i> ' + SITE_CONFIG.college.email;
+    document.getElementById('footerWebsite').innerHTML = '<i class="fas fa-globe"></i> ' + SITE_CONFIG.college.website;
+
+    // Logo handling
+    if (SITE_CONFIG.college.logo) {
+        var logo = document.getElementById('brandLogo');
+        logo.style.display = 'block'; logo.src = SITE_CONFIG.college.logo;
+        document.getElementById('brandIcon').style.display = 'none';
+    }
+
+    // Recent registrations
+    var students = DB.allStudents().slice().sort(function (a, b) { return (a.createdAt < b.createdAt) ? 1 : -1; }).slice(0, 8);
+    var grid = document.getElementById('recentGrid');
+    if (students.length) {
+        grid.innerHTML = students.map(function (s) {
+            return '<div class="recent-card fade-up"><div class="recent-avatar">' + escapeHtml(s.name.charAt(0)) + '</div>' +
+                '<div><h4>' + escapeHtml(s.name) + '</h4><p class="recent-reg">' + s.registrationNumber + '</p>' +
+                '<p class="recent-branch">' + escapeHtml(s.branch) + '</p></div></div>';
+        }).join('');
+    } else {
+        grid.innerHTML = '<p class="muted">No registrations yet. Be the first! 🚀</p>';
+    }
+})();
+</script>
+</body>
+</html>

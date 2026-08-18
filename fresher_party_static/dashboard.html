@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard · Fresher Party 2026</title>
+    <link rel="icon" href="images/favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div data-nav="dashboard"></div>
+<div data-footer></div>
+
+<section class="page-hero small"><div class="container">
+    <h1 class="fade-up">📊 Student &amp; Faculty Dashboard</h1>
+    <p class="fade-up">Live statistics calculated from registrations.</p>
+</div></section>
+
+<section class="section"><div class="container">
+    <div class="stats-grid">
+        <div class="stat-card fade-up"><div class="stat-icon" style="background:#eef2ff;color:#4f46e5"><i class="fas fa-user-graduate"></i></div><div class="stat-num" id="dStudents">0</div><div class="stat-label">Students Registered</div></div>
+        <div class="stat-card fade-up"><div class="stat-icon" style="background:#fce7f3;color:#db2777"><i class="fas fa-chalkboard-teacher"></i></div><div class="stat-num" id="dFaculty">0</div><div class="stat-label">Faculty Members</div></div>
+        <div class="stat-card fade-up"><div class="stat-icon" style="background:#dcfce7;color:#16a34a"><i class="fas fa-building"></i></div><div class="stat-num" id="dBranches">0</div><div class="stat-label">Branches</div></div>
+    </div>
+
+    <div class="chart-grid">
+        <div class="card chart-card fade-up"><h3>🎓 Students by Branch</h3><canvas id="chartBranch"></canvas></div>
+        <div class="card chart-card fade-up"><h3>📈 Registration Growth (7 days)</h3><canvas id="chartGrowth"></canvas></div>
+        <div class="card chart-card fade-up"><h3>👨‍🏫 Faculty by Branch</h3><canvas id="chartFaculty"></canvas></div>
+        <div class="card chart-card fade-up"><h3>📚 Marks Distribution</h3><canvas id="chartMarks"></canvas></div>
+    </div>
+
+    <div class="card table-card fade-up">
+        <h3>Recent Registrations</h3>
+        <div class="table-scroll">
+            <table><thead><tr><th>Reg. No.</th><th>Name</th><th>Branch</th><th>Marks</th><th>Date</th></tr></thead>
+            <tbody id="recentTable"></tbody></table>
+        </div>
+    </div>
+</div></section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/config.js"></script>
+<script src="js/data.js"></script>
+<script src="js/common.js"></script>
+<script src="js/components.js"></script>
+<script src="js/charts.js"></script>
+</body>
+</html>

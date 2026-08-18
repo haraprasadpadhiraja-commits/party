@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Directory · Fresher Party 2026</title>
+    <link rel="icon" href="images/favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div data-nav="faculty"></div>
+<div data-footer></div>
+
+<section class="page-hero small"><div class="container">
+    <h1 class="fade-up">👨‍🏫 Faculty Directory</h1>
+    <p class="fade-up">Meet the wonderful teachers who make our college great.</p>
+</div></section>
+
+<section class="section"><div class="container">
+    <div class="filter-bar fade-up">
+        <div class="filter-form">
+            <div class="filter-search"><i class="fas fa-search"></i>
+                <input type="text" id="facQ" placeholder="Search name, faculty no. or branch…"></div>
+            <select id="facBranch" class="filter-select"><option value="">All Branches</option></select>
+            <button class="btn btn-primary" onclick="applyFilter()"><i class="fas fa-filter"></i> Apply</button>
+            <button class="btn btn-outline" onclick="clearFilter()">Clear</button>
+        </div>
+    </div>
+    <div class="faculty-grid" id="facGrid"></div>
+    <div class="empty-state" id="facEmpty" style="display:none"><div class="empty-icon">🔍</div><p>No matching faculty found.</p></div>
+</div></section>
+
+<script src="js/config.js"></script>
+<script src="js/data.js"></script>
+<script src="js/common.js"></script>
+<script src="js/components.js"></script>
+<script src="js/faculty.js"></script>
+</body>
+</html>

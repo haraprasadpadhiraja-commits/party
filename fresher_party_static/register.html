@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration · Fresher Party 2026</title>
+    <link rel="icon" href="images/favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div data-nav="register"></div>
+<div data-footer></div>
+
+<section class="page-hero small"><div class="container">
+    <h1 class="fade-up">🎓 Student Registration</h1>
+    <p class="fade-up">Register for the Fresher Party 2026. Your registration number will be generated automatically.</p>
+</div></section>
+
+<section class="section"><div class="container container-narrow">
+    <div class="card form-card fade-up">
+        <h2 class="form-title"><i class="fas fa-user-graduate"></i> Registration Form</h2>
+        <div class="alert alert-error" id="formAlert" style="display:none">⚠️ Please check the information you entered.</div>
+        <form id="regForm" novalidate>
+            <div class="form-grid">
+                <div class="field"><label for="name">Student Name *</label>
+                    <input type="text" id="name" class="input-field" placeholder="e.g. Hara Prasad Padhi">
+                    <span class="field-error" id="errName"></span></div>
+                <div class="field"><label for="fatherName">Father's Name</label>
+                    <input type="text" id="fatherName" class="input-field" placeholder="Father's full name">
+                    <span class="field-error" id="errFather"></span></div>
+                <div class="field field-full"><label for="address">Address</label>
+                    <textarea id="address" class="input-field" rows="3" placeholder="Your permanent address"></textarea>
+                    <span class="field-error" id="errAddress"></span></div>
+                <div class="field"><label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" class="input-field" maxlength="10" placeholder="10-digit mobile number">
+                    <span class="field-error" id="errPhone"></span></div>
+                <div class="field"><label for="marks">Marks (%) *</label>
+                    <input type="number" id="marks" class="input-field" step="0.01" min="0" max="100" placeholder="e.g. 86.50">
+                    <span class="field-error" id="errMarks"></span></div>
+                <div class="field field-full"><label for="branch">Branch *</label>
+                    <select id="branch" class="input-field">
+                        <option value="">— Select Branch —</option>
+                        <option>Computer Science</option><option>Information Technology</option>
+                        <option>Electronics</option><option>Mechanical</option><option>Civil</option>
+                        <option>Management</option><option>Mathematics</option><option>Other</option>
+                    </select>
+                    <span class="field-error" id="errBranch"></span></div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg"><i class="fas fa-paper-plane"></i> Submit Registration</button>
+        </form>
+    </div>
+</div></section>
+
+<!-- Success Modal -->
+<div class="modal" id="successModal">
+    <div class="modal-card success-card">
+        <div class="success-emoji">🎉</div>
+        <h1 class="success-title">Congratulations!</h1>
+        <p class="success-dear">Dear <strong id="suName"></strong>,</p>
+        <p class="success-msg">Your Fresher Party registration has been successfully completed.</p>
+        <div class="reg-number-box">
+            <span class="reg-label">Your Registration Number is:</span>
+            <span class="reg-number" id="suReg"></span>
+        </div>
+        <p class="success-wish">🌟 We wish you a bright future, great success and an amazing college journey!<br>All the best for your career! 🎓</p>
+        <div class="success-details">
+            <div class="detail-row"><span>Name</span><span id="suName2"></span></div>
+            <div class="detail-row"><span>Branch</span><span id="suBranch"></span></div>
+            <div class="detail-row"><span>Marks</span><span id="suMarks"></span></div>
+            <div class="detail-row"><span>Phone</span><span id="suPhone"></span></div>
+        </div>
+        <div class="success-actions">
+            <button class="btn btn-primary" onclick="resetForm()"><i class="fas fa-plus"></i> Register Another</button>
+            <a href="index.html" class="btn btn-outline"><i class="fas fa-home"></i> Back to Home</a>
+        </div>
+    </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/data.js"></script>
+<script src="js/common.js"></script>
+<script src="js/components.js"></script>
+<script src="js/register.js"></script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel · Fresher Party 2026</title>
+    <link rel="icon" href="images/favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div data-nav="admin"></div>
+<div data-footer></div>
+
+<!-- ============ LOGIN GATE ============ -->
+<section class="section" id="loginGate">
+    <div class="container container-narrow">
+        <div class="card login-card fade-up">
+            <div class="login-icon">🔐</div>
+            <h2 class="form-title">Admin Login</h2>
+            <p class="muted center">Sign in to manage the Fresher Party system.</p>
+            <div class="alert alert-error" id="loginAlert" style="display:none">⚠️ Invalid username or password.</div>
+            <form id="loginForm" novalidate>
+                <div class="field"><label for="loginUser">Username</label>
+                    <div class="input-icon-wrap"><i class="fas fa-user"></i><input type="text" id="loginUser" class="input-field" placeholder="Username"></div></div>
+                <div class="field"><label for="loginPass">Password</label>
+                    <div class="input-icon-wrap"><i class="fas fa-lock"></i><input type="password" id="loginPass" class="input-field" placeholder="Password"></div></div>
+                <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top:1rem"><i class="fas fa-sign-in-alt"></i> Login</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- ============ ADMIN PANEL ============ -->
+<section class="section" id="adminPanel" style="display:none">
+    <div class="container">
+        <div class="card admin-head fade-up" style="padding:1.4rem">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+                <div><h2 style="font-size:1.4rem">🛡️ Admin Dashboard</h2>
+                    <p class="muted">Welcome, <strong id="adminUser"></strong>! Manage the Fresher Party system.</p></div>
+                <button class="btn btn-outline" onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </div>
+
+        <div class="stats-grid" style="margin-top:1.2rem">
+            <div class="stat-card fade-up"><div class="stat-icon" style="background:#eef2ff;color:#4f46e5"><i class="fas fa-user-graduate"></i></div><div class="stat-num" id="aStudents">0</div><div class="stat-label">Students</div></div>
+            <div class="stat-card fade-up"><div class="stat-icon" style="background:#fce7f3;color:#db2777"><i class="fas fa-chalkboard-teacher"></i></div><div class="stat-num" id="aFaculty">0</div><div class="stat-label">Faculty</div></div>
+            <div class="stat-card fade-up"><div class="stat-icon" style="background:#dcfce7;color:#16a34a"><i class="fas fa-building"></i></div><div class="stat-num" id="aBranches">0</div><div class="stat-label">Branches</div></div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="admin-tabs fade-up" style="display:flex;gap:.5rem;flex-wrap:wrap;margin:1.5rem 0">
+            <button class="btn btn-primary" data-tab="students">🎓 Students</button>
+            <button class="btn btn-outline" data-tab="faculty">👨‍🏫 Faculty</button>
+            <button class="btn btn-outline" data-tab="college">🏫 College</button>
+            <button class="btn btn-outline" data-tab="gallery">🖼️ Gallery</button>
+        </div>
+
+        <!-- STUDENTS TAB -->
+        <div class="tab-pane" id="tab-students">
+            <div class="card table-card fade-up">
+                <div class="table-toolbar">
+                    <div class="filter-form">
+                        <div class="filter-search"><i class="fas fa-search"></i><input type="text" id="stuQ" placeholder="Search students…"></div>
+                        <button class="btn btn-primary" onclick="renderStudents()"><i class="fas fa-filter"></i> Apply</button>
+                    </div>
+                    <div class="toolbar-actions">
+                        <button class="btn btn-primary" onclick="openStudentModal()"><i class="fas fa-plus"></i> Add Student</button>
+                        <button class="btn btn-success" onclick="exportExcel()"><i class="fas fa-file-excel"></i> Export Excel</button>
+                        <button class="btn btn-danger" onclick="exportPDF()"><i class="fas fa-file-pdf"></i> Export PDF</button>
+                    </div>
+                </div>
+                <div class="table-scroll"><table><thead><tr>
+                    <th>Reg. No.</th><th>Name</th><th>Father's Name</th><th>Phone</th><th>Branch</th><th>Marks</th><th>Actions</th>
+                </tr></thead><tbody id="stuTable"></tbody></table></div>
+            </div>
+        </div>
+
+        <!-- FACULTY TAB -->
+        <div class="tab-pane" id="tab-faculty" style="display:none">
+            <div class="card table-card fade-up">
+                <div class="table-toolbar">
+                    <button class="btn btn-primary" onclick="openFacultyModal()"><i class="fas fa-plus"></i> Add Faculty</button>
+                </div>
+                <div class="table-scroll"><table><thead><tr>
+                    <th>Faculty No.</th><th>Name</th><th>Branch</th><th>Designation</th><th>Email</th><th>Actions</th>
+                </tr></thead><tbody id="facTable"></tbody></table></div>
+            </div>
+        </div>
+
+        <!-- COLLEGE TAB -->
+        <div class="tab-pane" id="tab-college" style="display:none">
+            <div class="card form-card fade-up">
+                <h2 class="form-title">🏫 Edit College Information</h2>
+                <div class="form-grid">
+                    <div class="field"><label>College Name</label><input type="text" id="cName" class="input-field"></div>
+                    <div class="field"><label>Tagline</label><input type="text" id="cTagline" class="input-field"></div>
+                    <div class="field"><label>Established Year</label><input type="text" id="cYear" class="input-field"></div>
+                    <div class="field"><label>Website</label><input type="text" id="cWebsite" class="input-field"></div>
+                    <div class="field field-full"><label>Address</label><textarea id="cAddress" class="input-field" rows="2"></textarea></div>
+                    <div class="field"><label>Phone</label><input type="text" id="cPhone" class="input-field"></div>
+                    <div class="field"><label>Email</label><input type="text" id="cEmail" class="input-field"></div>
+                    <div class="field field-full"><label>History</label><textarea id="cHistory" class="input-field" rows="3"></textarea></div>
+                    <div class="field"><label>Vision</label><textarea id="cVision" class="input-field" rows="3"></textarea></div>
+                    <div class="field"><label>Mission</label><textarea id="cMission" class="input-field" rows="3"></textarea></div>
+                    <div class="field field-full"><label>Courses (one per line)</label><textarea id="cCourses" class="input-field" rows="3"></textarea></div>
+                    <div class="field field-full"><label>Branches (one per line)</label><textarea id="cBranches" class="input-field" rows="3"></textarea></div>
+                    <div class="field field-full"><label>Facilities (one per line)</label><textarea id="cFacilities" class="input-field" rows="3"></textarea></div>
+                    <div class="field"><label>Principal Name</label><input type="text" id="cPrincipal" class="input-field"></div>
+                    <div class="field field-full"><label>Principal's Message</label><textarea id="cPmsg" class="input-field" rows="3"></textarea></div>
+                    <div class="field"><label>Logo URL</label><input type="text" id="cLogo" class="input-field" placeholder="images/logo.png"></div>
+                    <div class="field"><label>Hero Image URL</label><input type="text" id="cHero" class="input-field" placeholder="images/hero.jpg"></div>
+                </div>
+                <div class="form-actions"><button class="btn btn-primary" onclick="saveCollege()"><i class="fas fa-save"></i> Save College Info</button></div>
+            </div>
+        </div>
+
+        <!-- GALLERY TAB -->
+        <div class="tab-pane" id="tab-gallery" style="display:none">
+            <div class="card form-card fade-up">
+                <h2 class="form-title">🖼️ Manage Gallery</h2>
+                <div class="form-grid">
+                    <div class="field"><label>Title</label><input type="text" id="gTitle" class="input-field"></div>
+                    <div class="field"><label>Category</label><select id="gCat" class="input-field"></select></div>
+                    <div class="field field-full"><label>Image URL</label><input type="text" id="gUrl" class="input-field" placeholder="https://… or images/photo1.jpg"></div>
+                </div>
+                <div class="form-actions"><button class="btn btn-primary" onclick="addGallery()"><i class="fas fa-plus"></i> Add Image</button></div>
+                <div class="gallery-grid admin-gallery" id="galGrid" style="margin-top:1.4rem"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- STUDENT MODAL -->
+<div class="modal" id="studentModal">
+    <div class="modal-card">
+        <h3 id="studentModalTitle">Add Student</h3>
+        <div class="form-grid">
+            <div class="field"><label>Student Name *</label><input type="text" id="smName" class="input-field"><span class="field-error" id="smErrName"></span></div>
+            <div class="field"><label>Father's Name</label><input type="text" id="smFather" class="input-field"></div>
+            <div class="field field-full"><label>Address</label><textarea id="smAddress" class="input-field" rows="2"></textarea></div>
+            <div class="field"><label>Phone *</label><input type="tel" id="smPhone" class="input-field" maxlength="10"><span class="field-error" id="smErrPhone"></span></div>
+            <div class="field"><label>Marks (%) *</label><input type="number" id="smMarks" class="input-field" step="0.01" min="0" max="100"><span class="field-error" id="smErrMarks"></span></div>
+            <div class="field field-full"><label>Branch *</label>
+                <select id="smBranch" class="input-field"><option value="">— Select —</option>
+                    <option>Computer Science</option><option>Information Technology</option><option>Electronics</option>
+                    <option>Mechanical</option><option>Civil</option><option>Management</option><option>Mathematics</option><option>Other</option></select></div>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-primary" id="smSaveBtn" onclick="saveStudent()"><i class="fas fa-save"></i> Save</button>
+            <button class="btn btn-outline" onclick="closeStudentModal()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- FACULTY MODAL -->
+<div class="modal" id="facultyModal">
+    <div class="modal-card">
+        <h3 id="facultyModalTitle">Add Faculty</h3>
+        <div class="form-grid">
+            <div class="field"><label>Full Name *</label><input type="text" id="fmName" class="input-field"></div>
+            <div class="field"><label>Branch *</label><input type="text" id="fmBranch" class="input-field"></div>
+            <div class="field"><label>Designation</label><input type="text" id="fmDesig" class="input-field" placeholder="Professor"></div>
+            <div class="field"><label>Email</label><input type="text" id="fmEmail" class="input-field"></div>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-primary" onclick="saveFaculty()"><i class="fas fa-save"></i> Save</button>
+            <button class="btn btn-outline" onclick="closeFacultyModal()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/data.js"></script>
+<script src="js/common.js"></script>
+<script src="js/components.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
