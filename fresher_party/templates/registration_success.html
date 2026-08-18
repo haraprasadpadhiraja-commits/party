@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Registration Successful · Fresher Party 2026{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container container-narrow">
+        <div class="card success-card fade-up">
+            <div class="success-emoji">🎉</div>
+            <h1 class="success-title">Congratulations!</h1>
+
+            <p class="success-dear">Dear <strong>{{ student.name }}</strong>,</p>
+            <p class="success-msg">
+                Your Fresher Party registration has been successfully completed.
+            </p>
+
+            <div class="reg-number-box">
+                <span class="reg-label">Your Registration Number is:</span>
+                <span class="reg-number">{{ student.registration_number }}</span>
+            </div>
+
+            <p class="success-wish">
+                🌟 We wish you a bright future, great success and an amazing college journey!<br>
+                All the best for your career! 🎓
+            </p>
+
+            <div class="success-details">
+                <div class="detail-row"><span>Name</span><span>{{ student.name }}</span></div>
+                <div class="detail-row"><span>Branch</span><span>{{ student.branch }}</span></div>
+                <div class="detail-row"><span>Marks</span><span>{{ student.marks }}%</span></div>
+                <div class="detail-row"><span>Phone</span><span>{{ student.phone }}</span></div>
+            </div>
+
+            <div class="success-actions">
+                <a href="{% url 'student_register' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Register Another</a>
+                <a href="{% url 'home' %}" class="btn btn-outline"><i class="fas fa-home"></i> Back to Home</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="{% static 'js/confetti.js' %}"></script>
+{% endblock %}

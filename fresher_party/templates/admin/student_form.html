@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block admin_active %}active{% endblock %}
+{% block title %}{{ title }} · Admin{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container container-narrow">
+        <div class="card form-card fade-up">
+            <h2 class="form-title"><i class="fas fa-user-graduate"></i> {{ title }}</h2>
+
+            {% if form.non_field_errors %}
+                <div class="alert alert-error">
+                    {% for e in form.non_field_errors %}<p>⚠️ {{ e }}</p>{% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="{{ form.name.id_for_label }}">Student Name *</label>
+                        {{ form.name }}
+                        {% for e in form.name.errors %}<span class="field-error">{{ e }}</span>{% endfor %}
+                    </div>
+                    <div class="field">
+                        <label for="{{ form.father_name.id_for_label }}">Father's Name</label>
+                        {{ form.father_name }}
+                        {% for e in form.father_name.errors %}<span class="field-error">{{ e }}</span>{% endfor %}
+                    </div>
+                    <div class="field field-full">
+                        <label for="{{ form.address.id_for_label }}">Address</label>
+                        {{ form.address }}
+                        {% for e in form.address.errors %}<span class="field-error">{{ e }}</span>{% endfor %}
+                    </div>
+                    <div class="field">
+                        <label for="{{ form.phone.id_for_label }}">Phone Number *</label>
+                        {{ form.phone }}
+                        {% for e in form.phone.errors %}<span class="field-error">{{ e }}</span>{% endfor %}
+                    </div>
+                    <div class="field">
+                        <label for="{{ form.marks.id_for_label }}">Marks (%) *</label>
+                        {{ form.marks }}
+                        {% for e in form.marks.errors %}<span class="field-error">{{ e }}</span>{% endfor %}
+                    </div>
+                    <div class="field field-full">
+                        <label for="{{ form.branch.id_for_label }}">Branch *</label>
+                        {{ form.branch }}
+                        {% for e in form.branch.errors %}<span class="field-error">{{ e }}</span>{% endfor %}
+                    </div>
+                </div>
+
+                {% if form.errors %}
+                    <div class="alert alert-error">⚠️ Please check the information you entered.</div>
+                {% endif %}
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                    <a href="{% url 'student_list' %}" class="btn btn-outline">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

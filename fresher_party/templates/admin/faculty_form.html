@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block admin_active %}active{% endblock %}
+{% block title %}{{ title }} · Admin{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container container-narrow">
+        <div class="card form-card fade-up">
+            <h2 class="form-title"><i class="fas fa-chalkboard-teacher"></i> {{ title }}</h2>
+
+            {% if form.non_field_errors %}
+                <div class="alert alert-error">
+                    {% for e in form.non_field_errors %}<p>⚠️ {{ e }}</p>{% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="{{ form.name.id_for_label }}">Full Name *</label>
+                        {{ form.name }}
+                        {% for e in form.name.errors %}<span class="field-error">{{ e }}</span>{% endfor %}
+                    </div>
+                    <div class="field">
+                        <label for="{{ form.branch.id_for_label }}">Branch *</label>
+                        {{ form.branch }}
+                        {% for e in form.branch.errors %}<span class="field-error">{{ e }}</span>{% endfor %}
+                    </div>
+                    <div class="field">
+                        <label for="{{ form.designation.id_for_label }}">Designation</label>
+                        {{ form.designation }}
+                        {% for e in form.designation.errors %}<span class="field-error">{{ e }}</span>{% endfor %}
+                    </div>
+                    <div class="field">
+                        <label for="{{ form.email.id_for_label }}">Email</label>
+                        {{ form.email }}
+                        {% for e in form.email.errors %}<span class="field-error">{{ e }}</span>{% endfor %}
+                    </div>
+                </div>
+
+                {% if form.errors %}
+                    <div class="alert alert-error">⚠️ Please check the information you entered.</div>
+                {% endif %}
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                    <a href="{% url 'faculty_list' %}" class="btn btn-outline">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

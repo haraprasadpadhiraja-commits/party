@@ -1,0 +1,7 @@
+# Fresher Party Management System — Python dependencies
+Django>=4.2,<7
+Pillow>=10.0          # image fields / uploads
+openpyxl>=3.1         # Excel export
+reportlab>=4.0        # PDF export
+# For production with MySQL instead of SQLite, install and uncomment:
+# mysqlclient>=2.2

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block admin_active %}active{% endblock %}
+{% block title %}Admin Dashboard · {{ college.college_name }}{% endblock %}
+
+{% block content %}
+<section class="page-hero small">
+    <div class="container">
+        <h1 class="fade-up">🛡️ Admin Dashboard</h1>
+        <p class="fade-up">Welcome, <strong>{{ user.username }}</strong>! Manage the Fresher Party system.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <!-- Overview cards -->
+        <div class="stats-grid">
+            <a href="{% url 'student_list' %}" class="stat-card fade-up">
+                <div class="stat-icon" style="background:#eef2ff;color:#4f46e5"><i class="fas fa-user-graduate"></i></div>
+                <div class="stat-num">{{ student_count }}</div>
+                <div class="stat-label">Students</div>
+            </a>
+            <a href="{% url 'faculty_list' %}" class="stat-card fade-up">
+                <div class="stat-icon" style="background:#fce7f3;color:#db2777"><i class="fas fa-chalkboard-teacher"></i></div>
+                <div class="stat-num">{{ faculty_count }}</div>
+                <div class="stat-label">Faculty</div>
+            </a>
+            <div class="stat-card fade-up">
+                <div class="stat-icon" style="background:#dcfce7;color:#16a34a"><i class="fas fa-building"></i></div>
+                <div class="stat-num">{{ branch_count }}</div>
+                <div class="stat-label">Branches</div>
+            </div>
+        </div>
+
+        <!-- Management panels -->
+        <div class="admin-panels">
+            <div class="card admin-panel fade-up">
+                <h3><i class="fas fa-user-graduate"></i> Student Management</h3>
+                <div class="admin-actions">
+                    <a href="{% url 'student_add' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Student</a>
+                    <a href="{% url 'student_list' %}" class="btn btn-outline"><i class="fas fa-list"></i> View Students</a>
+                    <a href="{% url 'export_excel' %}" class="btn btn-success"><i class="fas fa-file-excel"></i> Export Excel</a>
+                    <a href="{% url 'export_pdf' %}" class="btn btn-danger"><i class="fas fa-file-pdf"></i> Export PDF</a>
+                </div>
+            </div>
+            <div class="card admin-panel fade-up">
+                <h3><i class="fas fa-chalkboard-teacher"></i> Faculty Management</h3>
+                <div class="admin-actions">
+                    <a href="{% url 'faculty_add' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Faculty</a>
+                    <a href="{% url 'faculty_list' %}" class="btn btn-outline"><i class="fas fa-list"></i> View Faculty</a>
+                </div>
+            </div>
+            <div class="card admin-panel fade-up">
+                <h3><i class="fas fa-university"></i> College</h3>
+                <div class="admin-actions">
+                    <a href="{% url 'college_edit' %}" class="btn btn-primary"><i class="fas fa-edit"></i> Edit College Information</a>
+                </div>
+            </div>
+            <div class="card admin-panel fade-up">
+                <h3><i class="fas fa-images"></i> Gallery</h3>
+                <div class="admin-actions">
+                    <a href="{% url 'gallery_add' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Image</a>
+                    <a href="{% url 'gallery_manage' %}" class="btn btn-outline"><i class="fas fa-images"></i> Manage Gallery</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

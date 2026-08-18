@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block admin_active %}active{% endblock %}
+{% block title %}Edit College Information · Admin{% endblock %}
+
+{% block content %}
+<section class="page-hero small">
+    <div class="container">
+        <h1 class="fade-up">🏫 Edit College Information</h1>
+        <p class="fade-up">This content is stored in the database and shown on the About page.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container container-narrow">
+        <div class="card form-card fade-up">
+            <form method="post" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-error">{% for e in form.non_field_errors %}<p>⚠️ {{ e }}</p>{% endfor %}</div>
+                {% endif %}
+
+                <div class="form-section">
+                    <h3>Basic Details</h3>
+                    <div class="form-grid">
+                        <div class="field"><label>College Name</label>{{ form.college_name }}{% for e in form.college_name.errors %}<span class="field-error">{{ e }}</span>{% endfor %}</div>
+                        <div class="field"><label>Tagline</label>{{ form.tagline }}{% for e in form.tagline.errors %}<span class="field-error">{{ e }}</span>{% endfor %}</div>
+                        <div class="field"><label>Established Year</label>{{ form.established_year }}{% for e in form.established_year.errors %}<span class="field-error">{{ e }}</span>{% endfor %}</div>
+                        <div class="field"><label>Website</label>{{ form.website }}{% for e in form.website.errors %}<span class="field-error">{{ e }}</span>{% endfor %}</div>
+                        <div class="field field-full"><label>Address</label>{{ form.address }}{% for e in form.address.errors %}<span class="field-error">{{ e }}</span>{% endfor %}</div>
+                        <div class="field"><label>Phone</label>{{ form.phone }}{% for e in form.phone.errors %}<span class="field-error">{{ e }}</span>{% endfor %}</div>
+                        <div class="field"><label>Email</label>{{ form.email }}{% for e in form.email.errors %}<span class="field-error">{{ e }}</span>{% endfor %}</div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>About the College</h3>
+                    <div class="form-grid">
+                        <div class="field field-full"><label>History</label>{{ form.history }}{% for e in form.history.errors %}<span class="field-error">{{ e }}</span>{% endfor %}</div>
+                        <div class="field"><label>Vision</label>{{ form.vision }}{% for e in form.vision.errors %}<span class="field-error">{{ e }}</span>{% endfor %}</div>
+                        <div class="field"><label>Mission</label>{{ form.mission }}{% for e in form.mission.errors %}<span class="field-error">{{ e }}</span>{% endfor %}</div>
+                        <div class="field"><label>Courses (one per line)</label>{{ form.courses }}{% for e in form.courses.errors %}<span class="field-error">{{ e }}</span>{% endfor %}</div>
+                        <div class="field"><label>Branches (one per line)</label>{{ form.branches }}{% for e in form.branches.errors %}<span class="field-error">{{ e }}</span>{% endfor %}</div>
+                        <div class="field field-full"><label>Facilities (one per line)</label>{{ form.facilities }}{% for e in form.facilities.errors %}<span class="field-error">{{ e }}</span>{% endfor %}</div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Principal / Administration</h3>
+                    <div class="form-grid">
+                        <div class="field"><label>Principal Name</label>{{ form.principal_name }}{% for e in form.principal_name.errors %}<span class="field-error">{{ e }}</span>{% endfor %}</div>
+                        <div class="field field-full"><label>Principal's Message</label>{{ form.principal_message }}{% for e in form.principal_message.errors %}<span class="field-error">{{ e }}</span>{% endfor %}</div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Photos &amp; Logo</h3>
+                    <div class="form-grid">
+                        <div class="field"><label>College Logo</label>{{ form.logo }}{% for e in form.logo.errors %}<span class="field-error">{{ e }}</span>{% endfor %}<p class="hint">Recommended: square, ~300×300 px.</p></div>
+                        <div class="field"><label>Hero Image</label>{{ form.hero_image }}{% for e in form.hero_image.errors %}<span class="field-error">{{ e }}</span>{% endfor %}<p class="hint">Used on the About page, ~1200×500 px.</p></div>
+                    </div>
+                </div>
+
+                {% if form.errors %}
+                    <div class="alert alert-error">⚠️ Please check the information you entered.</div>
+                {% endif %}
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Changes</button>
+                    <a href="{% url 'about_page' %}" class="btn btn-outline"><i class="fas fa-eye"></i> View Page</a>
+                    <a href="{% url 'admin_dashboard' %}" class="btn btn-outline">Back to Dashboard</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

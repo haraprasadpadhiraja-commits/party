@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block dash_active %}active{% endblock %}
+{% block title %}Dashboard · {{ college.college_name }}{% endblock %}
+
+{% block content %}
+<section class="page-hero small">
+    <div class="container">
+        <h1 class="fade-up">📊 Student &amp; Faculty Dashboard</h1>
+        <p class="fade-up">Live statistics calculated from the database.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <!-- Stat cards -->
+        <div class="stats-grid">
+            <div class="stat-card fade-up">
+                <div class="stat-icon" style="background:#eef2ff;color:#4f46e5"><i class="fas fa-user-graduate"></i></div>
+                <div class="stat-num">{{ student_count }}</div>
+                <div class="stat-label">Students Registered</div>
+            </div>
+            <div class="stat-card fade-up">
+                <div class="stat-icon" style="background:#fce7f3;color:#db2777"><i class="fas fa-chalkboard-teacher"></i></div>
+                <div class="stat-num">{{ faculty_count }}</div>
+                <div class="stat-label">Faculty Members</div>
+            </div>
+            <div class="stat-card fade-up">
+                <div class="stat-icon" style="background:#dcfce7;color:#16a34a"><i class="fas fa-building"></i></div>
+                <div class="stat-num">{{ branch_count }}</div>
+                <div class="stat-label">Branches</div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="chart-grid">
+            <div class="card chart-card fade-up">
+                <h3>🎓 Students by Branch</h3>
+                <canvas id="chartBranch"></canvas>
+            </div>
+            <div class="card chart-card fade-up">
+                <h3>📈 Registration Growth (7 days)</h3>
+                <canvas id="chartGrowth"></canvas>
+            </div>
+            <div class="card chart-card fade-up">
+                <h3>👨‍🏫 Faculty by Branch</h3>
+                <canvas id="chartFaculty"></canvas>
+            </div>
+            <div class="card chart-card fade-up">
+                <h3>📚 Marks Distribution</h3>
+                <canvas id="chartMarks"></canvas>
+            </div>
+        </div>
+
+        <!-- Recent students table -->
+        <div class="card table-card fade-up">
+            <h3>Recent Registrations</h3>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr><th>Reg. No.</th><th>Name</th><th>Branch</th><th>Marks</th><th>Date</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for s in students %}
+                        <tr>
+                            <td>{{ s.registration_number }}</td>
+                            <td>{{ s.name }}</td>
+                            <td>{{ s.branch }}</td>
+                            <td>{{ s.marks }}</td>
+                            <td>{{ s.created_at|date:"d M Y" }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="5" class="muted">No students yet.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const branchData = {
+        labels: [{% for b in students_by_branch %}"{{ b.branch|escapejs }}",{% endfor %}],
+        data: [{% for b in students_by_branch %}{{ b.count }},{% endfor %}]
+    };
+    const growthData = {
+        labels: [{% for d in growth_days %}"{{ d.label|escapejs }}",{% endfor %}],
+        data: [{% for d in growth_days %}{{ d.count }},{% endfor %}]
+    };
+    const facultyData = {
+        labels: [{% for f in faculty_by_branch %}"{{ f.branch|escapejs }}",{% endfor %}],
+        data: [{% for f in faculty_by_branch %}{{ f.count }},{% endfor %}]
+    };
+    const marksData = {
+        labels: [{% for m in marks_buckets %}"{{ m.label|escapejs }}",{% endfor %}],
+        data: [{% for m in marks_buckets %}{{ m.count }},{% endfor %}]
+    };
+</script>
+<script src="{% static 'js/charts.js' %}"></script>
+{% endblock %}

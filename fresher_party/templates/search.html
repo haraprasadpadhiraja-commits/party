@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block search_active %}active{% endblock %}
+{% block title %}Search · {{ college.college_name }}{% endblock %}
+
+{% block content %}
+<section class="page-hero small">
+    <div class="container">
+        <h1 class="fade-up">🔍 Search</h1>
+        <p class="fade-up">Search students, faculty and branches — results update as you type.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container container-narrow">
+        <div class="card fade-up">
+            <div class="big-search">
+                <i class="fas fa-search"></i>
+                <input type="text" id="bigSearch" value="{{ q }}" placeholder="Type here… e.g. hara">
+            </div>
+        </div>
+
+        <div id="searchResults" class="search-results-page">
+            <!-- Results rendered by JS live; initial results for no-JS fallback -->
+        </div>
+    </div>
+</section>
+
+<script src="{% static 'js/search.js' %}"></script>
+{% endblock %}

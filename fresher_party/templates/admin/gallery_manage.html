@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block admin_active %}active{% endblock %}
+{% block title %}Manage Gallery · Admin{% endblock %}
+
+{% block content %}
+<section class="page-hero small">
+    <div class="container">
+        <h1 class="fade-up">🖼️ Gallery Management</h1>
+        <p class="fade-up">{{ images.count }} images.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="table-toolbar fade-up">
+            <a href="{% url 'gallery_add' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Image</a>
+        </div>
+
+        {% if images %}
+        <div class="gallery-grid admin-gallery">
+            {% for img in images %}
+            <div class="gallery-item fade-up" data-src="{{ img.display_url }}">
+                {% if img.display_url %}
+                    <img src="{{ img.display_url }}" alt="{{ img.title }}" loading="lazy">
+                {% else %}
+                    <div class="gallery-placeholder">📷</div>
+                {% endif %}
+                <div class="gallery-overlay">
+                    <span>{{ img.title|default:'Untitled' }}</span>
+                    <span class="gallery-cat">{{ img.category }}</span>
+                </div>
+                <div class="gallery-admin-actions">
+                    <a href="{% url 'gallery_edit' img.pk %}" class="icon-btn edit" title="Edit"><i class="fas fa-edit"></i></a>
+                    <button class="icon-btn del" title="Delete" data-confirm="Are you sure you want to delete this image?" data-form="#delGal-{{ img.pk }}"><i class="fas fa-trash"></i></button>
+                    <form id="delGal-{{ img.pk }}" method="post" action="{% url 'gallery_delete' img.pk %}" class="hidden-form">{% csrf_token %}</form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state fade-up">
+            <div class="empty-icon">🖼️</div>
+            <p>No images yet. Add your first one!</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+    <img src="" alt="" id="lightboxImg" class="lightbox-img">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+{% endblock %}

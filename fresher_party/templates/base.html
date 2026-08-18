@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ college.college_name }}{% endblock %} · Fresher Party 2026</title>
+    <link rel="icon" href="{% static 'images/favicon.svg' %}" type="image/svg+xml">
+    <!-- Font Awesome (fallback via CDN; degrades gracefully offline) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body data-theme="light">
+
+<!-- ===================== NAVBAR ===================== -->
+<nav class="navbar" id="navbar">
+    <div class="nav-inner">
+        <a href="{% url 'home' %}" class="brand">
+            {% if college.logo %}
+                <img src="{{ college.logo.url }}" alt="Logo" class="brand-logo">
+            {% else %}
+                <span class="brand-icon">🎓</span>
+            {% endif %}
+            <span class="brand-text">
+                <span class="brand-name">{{ college.college_name }}</span>
+                <span class="brand-sub">Fresher Party 2026</span>
+            </span>
+        </a>
+
+        <div class="nav-right">
+            <ul class="nav-links" id="navLinks">
+                <li><a href="{% url 'home' %}" class="{% block home_active %}{% endblock %}"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="{% url 'student_register' %}" class="{% block register_active %}{% endblock %}"><i class="fas fa-user-graduate"></i> Student Registration</a></li>
+                <li><a href="{% url 'faculty_page' %}" class="{% block faculty_active %}{% endblock %}"><i class="fas fa-chalkboard-teacher"></i> Faculty</a></li>
+                <li><a href="{% url 'dashboard' %}" class="{% block dash_active %}{% endblock %}"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+                <li><a href="{% url 'search_page' %}" class="{% block search_active %}{% endblock %}"><i class="fas fa-search"></i> Search</a></li>
+                <li><a href="{% url 'gallery_page' %}" class="{% block gallery_active %}{% endblock %}"><i class="fas fa-images"></i> Gallery</a></li>
+                <li><a href="{% url 'about_page' %}" class="{% block about_active %}{% endblock %}"><i class="fas fa-university"></i> About</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'admin_dashboard' %}" class="{% block admin_active %}{% endblock %}"><i class="fas fa-tachometer-alt"></i> Admin Panel</a></li>
+                    <li class="nav-login">
+                        <a href="{% url 'logout' %}" class="btn btn-login"><i class="fas fa-sign-out-alt"></i> Logout ({{ user.username }})</a>
+                    </li>
+                {% else %}
+                    <li class="nav-login"><a href="{% url 'login' %}" class="btn btn-login"><i class="fas fa-lock"></i> Admin Login</a></li>
+                {% endif %}
+            </ul>
+
+            <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Live search dropdown -->
+    <div class="nav-search" id="navSearch">
+        <div class="search-wrap">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="globalSearch" class="search-input"
+                   placeholder="Search students, faculty, branches… (live)">
+        </div>
+        <div class="search-results" id="globalSearchResults"></div>
+    </div>
+</nav>
+
+<!-- ===================== TOASTS ===================== -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ===================== CONFETTI CANVAS ===================== -->
+<canvas id="confettiCanvas"></canvas>
+
+<!-- ===================== CONTENT ===================== -->
+<main class="page-content">
+    {% block content %}{% endblock %}
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-col">
+            <h4>{{ college.college_name }}</h4>
+            <p>{{ college.tagline }}</p>
+            <p class="footer-address"><i class="fas fa-map-marker-alt"></i> {{ college.address|default:'College Address' }}</p>
+        </div>
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'student_register' %}">Register</a></li>
+                <li><a href="{% url 'faculty_page' %}">Faculty</a></li>
+                <li><a href="{% url 'gallery_page' %}">Gallery</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Contact</h4>
+            <p><i class="fas fa-phone"></i> {{ college.phone|default:'+91 XXXXX XXXXX' }}</p>
+            <p><i class="fas fa-envelope"></i> {{ college.email|default:'info@college.edu' }}</p>
+            <p><i class="fas fa-globe"></i> {{ college.website|default:'www.college.edu' }}</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        © <span id="footerYear"></span> {{ college.college_name }} · Fresher Party 2026. All rights reserved.
+    </div>
+</footer>
+
+<script src="{% static 'js/main.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

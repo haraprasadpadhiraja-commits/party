@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Admin Login · {{ college.college_name }}{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container container-narrow">
+        <div class="card login-card fade-up">
+            <div class="login-icon">🔐</div>
+            <h2 class="form-title">Admin Login</h2>
+            <p class="muted center">Sign in to manage the Fresher Party system.</p>
+
+            {% if form.non_field_errors %}
+                <div class="alert alert-error">
+                    {% for e in form.non_field_errors %}<p>⚠️ {{ e }}</p>{% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <div class="field">
+                    <label for="id_username">Username</label>
+                    <div class="input-icon-wrap">
+                        <i class="fas fa-user"></i>
+                        {{ form.username }}
+                    </div>
+                    {% for e in form.username.errors %}<span class="field-error">{{ e }}</span>{% endfor %}
+                </div>
+                <div class="field">
+                    <label for="id_password">Password</label>
+                    <div class="input-icon-wrap">
+                        <i class="fas fa-lock"></i>
+                        {{ form.password }}
+                    </div>
+                    {% for e in form.password.errors %}<span class="field-error">{{ e }}</span>{% endfor %}
+                </div>
+                <button type="submit" class="btn btn-primary btn-block btn-lg">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

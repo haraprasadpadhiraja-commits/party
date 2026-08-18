@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block about_active %}active{% endblock %}
+{% block title %}About {{ college.college_name }}{% endblock %}
+
+{% block content %}
+<section class="page-hero small">
+    <div class="container">
+        <h1 class="fade-up">🏫 About Our College</h1>
+        <p class="fade-up">{{ info.college_name }} · Estd. {{ info.established_year|default:'—' }}</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="about-hero card fade-up">
+            {% if info.hero_image %}
+                <img src="{{ info.hero_image.url }}" alt="{{ info.college_name }}" class="about-hero-img">
+            {% endif %}
+            <div class="about-hero-text">
+                <h2>{{ info.college_name }}</h2>
+                <p class="tagline-text">{{ info.tagline }}</p>
+                <p>{{ info.history }}</p>
+            </div>
+        </div>
+
+        <div class="about-grid">
+            <div class="card about-card fade-up">
+                <h3>👁️ Our Vision</h3>
+                <p>{{ info.vision|default:'—' }}</p>
+            </div>
+            <div class="card about-card fade-up">
+                <h3>🎯 Our Mission</h3>
+                <p>{{ info.mission|default:'—' }}</p>
+            </div>
+        </div>
+
+        <div class="about-grid">
+            <div class="card about-card fade-up">
+                <h3>📚 Courses Offered</h3>
+                <ul class="bullet-list">
+                    {% for c in courses %}<li>{{ c }}</li>{% empty %}<li>—</li>{% endfor %}
+                </ul>
+            </div>
+            <div class="card about-card fade-up">
+                <h3>🏛️ Branches</h3>
+                <ul class="bullet-list">
+                    {% for b in branches %}<li>{{ b }}</li>{% empty %}<li>—</li>{% endfor %}
+                </ul>
+            </div>
+            <div class="card about-card fade-up">
+                <h3>🛠️ Facilities</h3>
+                <ul class="bullet-list">
+                    {% for f in facilities %}<li>{{ f }}</li>{% empty %}<li>—</li>{% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="card about-card fade-up">
+            <h3>👩‍🏫 From the Principal</h3>
+            <blockquote class="principal-quote">“{{ info.principal_message|default:'Welcome to our college!' }}”</blockquote>
+            <p class="principal-name">— {{ info.principal_name|default:'Principal' }}</p>
+        </div>
+
+        <div class="card about-card contact-card fade-up">
+            <h3>📞 Contact Us</h3>
+            <div class="contact-grid">
+                <p><i class="fas fa-map-marker-alt"></i> {{ info.address|default:'—' }}</p>
+                <p><i class="fas fa-phone"></i> {{ info.phone|default:'—' }}</p>
+                <p><i class="fas fa-envelope"></i> {{ info.email|default:'—' }}</p>
+                <p><i class="fas fa-globe"></i> {{ info.website|default:'—' }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

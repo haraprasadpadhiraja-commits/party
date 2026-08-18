@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block admin_active %}active{% endblock %}
+{% block title %}{{ title }} · Admin{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container container-narrow">
+        <div class="card form-card fade-up">
+            <h2 class="form-title"><i class="fas fa-images"></i> {{ title }}</h2>
+
+            {% if form.non_field_errors %}
+                <div class="alert alert-error">
+                    {% for e in form.non_field_errors %}<p>⚠️ {{ e }}</p>{% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="{{ form.title.id_for_label }}">Title</label>
+                        {{ form.title }}
+                        {% for e in form.title.errors %}<span class="field-error">{{ e }}</span>{% endfor %}
+                    </div>
+                    <div class="field">
+                        <label for="{{ form.category.id_for_label }}">Category *</label>
+                        {{ form.category }}
+                        {% for e in form.category.errors %}<span class="field-error">{{ e }}</span>{% endfor %}
+                    </div>
+                    <div class="field field-full">
+                        <label for="{{ form.image.id_for_label }}">Upload Image</label>
+                        {{ form.image }}
+                        {% for e in form.image.errors %}<span class="field-error">{{ e }}</span>{% endfor %}
+                        <p class="hint">Upload a photo file, <strong>or</strong> paste an external image URL below.</p>
+                    </div>
+                    <div class="field field-full">
+                        <label for="{{ form.image_url.id_for_label }}">Or External Image URL</label>
+                        {{ form.image_url }}
+                        {% for e in form.image_url.errors %}<span class="field-error">{{ e }}</span>{% endfor %}
+                    </div>
+                </div>
+
+                {% if form.errors %}
+                    <div class="alert alert-error">⚠️ Please check the information you entered.</div>
+                {% endif %}
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                    <a href="{% url 'gallery_manage' %}" class="btn btn-outline">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
